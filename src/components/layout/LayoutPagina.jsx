@@ -10,12 +10,7 @@ const LayoutPagina = () => {
         <Header />
       </Box>
       <Box component="main" sx={{ flexGrow: "1", p: "1em" }}>
-        {/* Aca tiene que ir el componente Outlet */}
-        {/* Los componentes que salen ahora son solo ejemplos */}
-        <Stack spacing={1}>
-          <Paper>Probando</Paper>
-          <Paper>Probando</Paper>
-        </Stack>
+        <Outlet />
       </Box>
       <Box
         component="footer"

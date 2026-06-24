@@ -4,17 +4,7 @@ import {
   GroupOutlined,
   HomeOutlined,
 } from "@mui/icons-material";
-import {
-  ButtonGroup,
-  Button,
-  List,
-  ListItemButton,
-  Stack,
-  Divider,
-  ToggleButtonGroup,
-  ToggleButton,
-  Box,
-} from "@mui/material";
+import { ToggleButtonGroup, ToggleButton, Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export const Nav = () => {
@@ -35,19 +25,19 @@ export const Nav = () => {
           gap: 0.6,
           borderRadius: "8px !important",
           "&:hover": { bgcolor: "rgba(255,255,255,0.12)" },
-          "& .active": { bgcolor: "succes.main" },
+          "&.active": { bgcolor: "success.main" },
         },
       }}
     >
-      <ToggleButton component={NavLink}>
+      <ToggleButton component={NavLink} to="/">
         <HomeOutlined />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Inicio</Box>
       </ToggleButton>
-      <ToggleButton component={NavLink}>
+      <ToggleButton component={NavLink} to="/Usuarios">
         <GroupOutlined />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Usuarios</Box>
       </ToggleButton>
-      <ToggleButton component={NavLink}>
+      <ToggleButton component={NavLink} to="/Mi-Perfil">
         <AccountCircleOutlined />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Mi Perfil</Box>
       </ToggleButton>
