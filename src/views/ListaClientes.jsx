@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
+import { SkeletonTabla } from "../components/common/SkeletonTabla";
 
 const ListaClientes = () => {
   const [usuarios, setUsuarios] = useState(undefined);
@@ -20,7 +21,16 @@ const ListaClientes = () => {
   }, []);
 
   if (usuarios == undefined) {
-    return <>Cargando</>;
+    return (
+      <Box>
+        <Skeleton
+          variant="rounded"
+          height={60}
+          sx={{ bgcolor: "warning.main" }}
+        />
+        <SkeletonTabla filas={9} />
+      </Box>
+    );
   }
   if (usuarios == false) {
     return <>Error</>;
