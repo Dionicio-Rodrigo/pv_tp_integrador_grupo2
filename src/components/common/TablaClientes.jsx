@@ -35,17 +35,19 @@ export const TablaClientes = ({ clientes }) => {
               <Encabezado>APELLIDO</Encabezado>
               <Encabezado>E-MAIL</Encabezado>
               <Encabezado>TELEFONO</Encabezado>
+              <Encabezado>CIUDAD</Encabezado>
               {/* <Encabezado> para la info</Encabezado> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {clientes.map((c) => (
-              <TableRow key={c.id}>
+              <TableRow key={c.id} hover>
                 <Dato align="center">{c.id}</Dato>
                 <Dato>{`${c.name.firstname.charAt(0).toUpperCase()}${c.name.firstname.slice(1)}`}</Dato>
                 <Dato>{`${c.name.lastname.charAt(0).toUpperCase()}${c.name.lastname.slice(1)}`}</Dato>
                 <Dato>{c.email}</Dato>
                 <Dato>{c.phone}</Dato>
+                <Dato>{c.address.city}</Dato>
                 {/* <Dato>Aca iria un boton para ir a la info detallada</Dato> */}
               </TableRow>
             ))}
