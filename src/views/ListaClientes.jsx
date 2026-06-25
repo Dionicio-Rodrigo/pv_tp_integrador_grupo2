@@ -1,6 +1,7 @@
 import { Box, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SkeletonTabla } from "../components/common/SkeletonTabla";
+import { TablaClientes } from "../components/common/TablaClientes";
 
 const ListaClientes = () => {
   const [usuarios, setUsuarios] = useState(undefined);
@@ -11,7 +12,8 @@ const ListaClientes = () => {
 
         if (!res.ok) throw new Error("Api no responde");
 
-        setUsuarios(res.json());
+        const data = await res.json();
+        setUsuarios(data);
       } catch (error) {
         console.log("Error en la api");
         setUsuarios(false);
@@ -23,12 +25,7 @@ const ListaClientes = () => {
   if (usuarios == undefined) {
     return (
       <Box>
-        <Skeleton
-          variant="rounded"
-          height={60}
-          sx={{ bgcolor: "warning.main" }}
-        />
-        <SkeletonTabla filas={9} />
+        <SkeletonTabla filas={10} />
       </Box>
     );
   }
@@ -36,7 +33,7 @@ const ListaClientes = () => {
     return <>Error</>;
   }
 
-  return <>Datos Cargados</>;
+  return <TablaClientes clientes={usuarios} />;
 };
 
 export default ListaClientes;
