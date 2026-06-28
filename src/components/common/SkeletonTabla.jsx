@@ -29,10 +29,11 @@ export const SkeletonTabla = ({ filas }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dfilas.map((f) => (
-            <TableRow>
-              {dcolumnas.map((c) => (
+          {dfilas.map((f, i) => (
+            <TableRow key ={i}>
+              {dcolumnas.map((c, j) => (
                 <TableCell
+                  key={j}
                   colSpan={1}
                   sx={{ border: "none", px: "5px", py: "10px" }}
                 >
