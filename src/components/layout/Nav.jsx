@@ -16,6 +16,9 @@ export const Nav = () => {
         borderRadius: "8px",
         padding: "3px",
         gap: "3px",
+        position: "relative",
+        top: "50%",
+        right: "10%",
         "& .MuiToggleButton-root": {
           color: "primary.contrastText",
           fontWeight: "bold",

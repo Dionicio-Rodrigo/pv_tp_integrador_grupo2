@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const LayoutPagina = () => {
   return (
     <Stack sx={{ height: "100vh" }}>
-      <Box component="header">
+      <Box component="header" sx={{ position: "relative" }}>
         <Header />
       </Box>
       <Box component="main" sx={{ flexGrow: "1", p: "1em" }}>
