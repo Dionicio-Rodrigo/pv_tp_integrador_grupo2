@@ -1,7 +1,7 @@
 import { Box, Container, Stack, Paper } from "@mui/material";
-import { Nav } from "./Nav";
-import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const LayoutPagina = () => {
   return (
@@ -21,7 +21,7 @@ const LayoutPagina = () => {
           py: "0.25em",
         }}
       >
-        Texto Ejemplo
+        <Footer />
       </Box>
     </Stack>
   );
