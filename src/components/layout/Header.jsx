@@ -6,11 +6,19 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Button,
 } from "@mui/material";
 import { Nav } from "./Nav";
-import { BakeryDining } from "@mui/icons-material";
+import { useAdmin } from "../../context/AdminContext";
 
 const Header = () => {
+  const { admin, logout } = useAdmin();
+
+  if (!admin) return null;
+
+  const partes = admin.nombre.trim().split(/\s+/);
+  const iniciales = (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+
   return (
     <AppBar
       position="sticky"
@@ -48,22 +56,27 @@ const Header = () => {
           <Nav />
         </Box>
         <Stack direction="row" spacing={1}>
-          <Stack sx={{ display: { xs: "none", md: "inherit" } }}>
+          <Stack sx={{ display: { xs: "none", md: "inherit" } }}></Stack>
+          <Stack>
             <Typography
               variant="caption"
               sx={{ color: "warning.contrastText", textAlign: "right" }}
             >
-              Nombre Apellido
+              {admin.nombre}
             </Typography>
-            <Typography
-              variant="caption"
-              color="warning"
-              sx={{ textAlign: "right" }}
-            >
-              Rol - Mas datos
+            <Typography variant="caption" color="warning">
+              {admin.sector}
             </Typography>
           </Stack>
-          <Avatar sx={{ bgcolor: "primary.main" }}>Ht</Avatar>
+          <Avatar sx={{ bgcolor: "primary.main" }}>{iniciales} </Avatar>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={logout}
+            sx={{ borderColor: "warning.main", color: "warning.contrastText" }}
+          >
+            CERRAR SESION
+          </Button>
         </Stack>
       </Toolbar>
     </AppBar>

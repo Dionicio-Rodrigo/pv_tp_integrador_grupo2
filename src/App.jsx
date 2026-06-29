@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LayoutPagina from "./components/layout/LayoutPagina";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ListaClientes from "./views/ListaClientes";
+import RutaProtegida from "./components/common/RutaProtegida";
+import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
 
 function App() {
@@ -11,10 +13,20 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LayoutPagina />}>
-            {/* Rutas de las otras vistas */}
+          <Route path="/login" element={<Login />} />
+
+          <Route
+            path="/"
+            element={
+              <RutaProtegida>
+                <LayoutPagina />
+              </RutaProtegida>
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="Usuarios" element={<ListaClientes />} />
+
+            <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
       </BrowserRouter>
