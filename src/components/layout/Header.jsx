@@ -51,11 +51,15 @@ const Header = () => {
           <Stack sx={{ display: { xs: "none", md: "inherit" } }}>
             <Typography
               variant="caption"
-              sx={{ color: "warning.contrastText" }}
+              sx={{ color: "warning.contrastText", textAlign: "right" }}
             >
               Nombre Apellido
             </Typography>
-            <Typography variant="caption" color="warning">
+            <Typography
+              variant="caption"
+              color="warning"
+              sx={{ textAlign: "right" }}
+            >
               Rol - Mas datos
             </Typography>
           </Stack>
