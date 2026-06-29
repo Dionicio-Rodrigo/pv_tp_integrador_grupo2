@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Nav } from "./Nav";
 import { useAdmin } from "../../context/AdminContext";
+import { BakeryDining } from "@mui/icons-material";
 
 const Header = () => {
   const { admin, logout } = useAdmin();
