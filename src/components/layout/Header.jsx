@@ -8,9 +8,9 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { Nav } from "./Nav";
 import { useAdmin } from "../../context/AdminContext";
-import { BakeryDining } from "@mui/icons-material";
+import { BakeryDining, LogoutOutlined } from "@mui/icons-material";
+import Nav from "./Nav";
 
 const Header = () => {
   const { admin, logout } = useAdmin();
@@ -37,12 +37,14 @@ const Header = () => {
               alignItems: "center",
               justifyContent: "center",
               alignSelf: "center",
-              flexShrink: 0,
             }}
           >
             <BakeryDining sx={{ fontSize: 45 }} />
           </Box>
-          <Typography variant="h5" sx={{ alignSelf: "center" }}>
+          <Typography
+            variant="h5"
+            sx={{ alignSelf: "center", display: { xs: "none", md: "inherit" } }}
+          >
             Panaderos Organizados
           </Typography>
         </Stack>
@@ -57,26 +59,27 @@ const Header = () => {
           <Nav />
         </Box>
         <Stack direction="row" spacing={1}>
-          <Stack sx={{ display: { xs: "none", md: "inherit" } }}></Stack>
-          <Stack>
+          <Stack sx={{ display: { xs: "none", md: "inherit" } }}>
             <Typography
               variant="caption"
-              sx={{ color: "warning.contrastText", textAlign: "right" }}
+              sx={{ color: "warning.contrastText" }}
+              align="right"
             >
               {admin.nombre}
             </Typography>
-            <Typography variant="caption" color="warning">
+            <Typography variant="caption" color="warning" align="right">
               {admin.sector}
             </Typography>
           </Stack>
           <Avatar sx={{ bgcolor: "primary.main" }}>{iniciales} </Avatar>
           <Button
-            variant="outlined"
+            variant="contained"
             size="small"
             onClick={logout}
+            color="success"
             sx={{ borderColor: "warning.main", color: "warning.contrastText" }}
           >
-            CERRAR SESION
+            <LogoutOutlined />
           </Button>
         </Stack>
       </Toolbar>
