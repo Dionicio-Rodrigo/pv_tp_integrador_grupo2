@@ -148,7 +148,9 @@ const Dashboard = () => {
             Notificaciones
           </Typography>
         </Stack>
+
         <Divider flexItem sx={{ bgcolor: "warning.main" }} />
+
         <Box component={List} dense>
           <ListItem>
             <ListItemIcon>
