@@ -33,9 +33,9 @@ const Nav = () => {
         <HomeOutlined sx={{ fontSize: 30 }} />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Inicio</Box>
       </ToggleButton>
-      <ToggleButton component={NavLink} to="/Usuarios">
+      <ToggleButton component={NavLink} to="/Clientes">
         <GroupOutlined sx={{ fontSize: 30 }} />
-        <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Usuarios</Box>
+        <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Clientes</Box>
       </ToggleButton>
       <ToggleButton component={NavLink} to="/Mi-Perfil">
         <AccountCircleOutlined sx={{ fontSize: 30 }} />

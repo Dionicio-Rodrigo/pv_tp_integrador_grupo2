@@ -24,7 +24,7 @@ function App() {
             }
           >
             <Route index element={<Dashboard />} />
-            <Route path="Usuarios" element={<ListaClientes />} />
+            <Route path="Clientes" element={<ListaClientes />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
