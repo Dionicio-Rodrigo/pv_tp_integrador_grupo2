@@ -7,7 +7,7 @@ import {
 import { ToggleButtonGroup, ToggleButton, Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
-export const Nav = () => {
+const Nav = () => {
   return (
     <ToggleButtonGroup
       size="small"
@@ -18,10 +18,10 @@ export const Nav = () => {
         gap: "3px",
         "& .MuiToggleButton-root": {
           color: "primary.contrastText",
-          fontWeight: "bold",
+
           border: "none",
           textTransform: "none",
-          fontSize: "12px",
+          fontSize: "1rem",
           gap: 0.6,
           borderRadius: "8px !important",
           "&:hover": { bgcolor: "rgba(255,255,255,0.12)" },
@@ -30,17 +30,21 @@ export const Nav = () => {
       }}
     >
       <ToggleButton component={NavLink} to="/">
-        <HomeOutlined />
+        <HomeOutlined sx={{ fontSize: 30 }} />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Inicio</Box>
       </ToggleButton>
-      <ToggleButton component={NavLink} to="/Usuarios">
-        <GroupOutlined />
-        <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Usuarios</Box>
+      <ToggleButton component={NavLink} to="/Clientes">
+        <GroupOutlined sx={{ fontSize: 30 }} />
+        <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Clientes</Box>
       </ToggleButton>
       <ToggleButton component={NavLink} to="/Mi-Perfil">
-        <AccountCircleOutlined />
-        <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Mi Perfil</Box>
+        <AccountCircleOutlined sx={{ fontSize: 30 }} />
+        <Box sx={{ display: { xs: "none", sm: "inline" }, flexWrap: "nowrap" }}>
+          Mi Perfil
+        </Box>
       </ToggleButton>
     </ToggleButtonGroup>
   );
 };
+
+export default Nav;

@@ -1,12 +1,12 @@
 import { Box, Container, Stack, Paper } from "@mui/material";
-import { Nav } from "./Nav";
-import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const LayoutPagina = () => {
   return (
     <Stack sx={{ height: "100vh" }}>
-      <Box component="header">
+      <Box component="header" sx={{ position: "relative" }}>
         <Header />
       </Box>
       <Box component="main" sx={{ flexGrow: "1", p: "1em" }}>
@@ -21,7 +21,7 @@ const LayoutPagina = () => {
           py: "0.25em",
         }}
       >
-        Texto Ejemplo
+        <Footer />
       </Box>
     </Stack>
   );

@@ -27,13 +27,14 @@ export const Theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `"Arial", "Helvetica", "sans-serif"`,
+    fontFamily: "'DM Sans', sans-serif",
   },
   components: {
     MuiPaper: {
       defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
+          color: `${COLORES.marron}`,
           borderRadius: "10px",
           border: `solid 0.25px ${COLORES.beige}`,
           backgroundColor: COLORES.blanco,
