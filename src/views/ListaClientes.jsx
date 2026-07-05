@@ -9,6 +9,8 @@ import {
 import { useEffect, useState } from "react";
 import { SkeletonTabla } from "../components/common/SkeletonTabla";
 import { TablaClientes } from "../components/common/TablaClientes";
+import FormularioCliente from "../components/common/FormularioCliente";
+
 import { ClientesContainer } from "../components/common/ClientesContainer";
 
 const ListaClientes = () => {
@@ -46,7 +48,8 @@ const ListaClientes = () => {
     : [];
 
   return (
-    <Box>
+    <Box sx={{ p: 3 }}>
+      <FormularioCliente />
       {/* LA INTERFAZ DEL BUSCADOR */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
