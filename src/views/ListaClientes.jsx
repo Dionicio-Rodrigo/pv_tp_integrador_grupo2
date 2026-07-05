@@ -2,6 +2,9 @@ import { Box, TextField, Typography, Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SkeletonTabla } from "../components/common/SkeletonTabla";
 import { TablaClientes } from "../components/common/TablaClientes";
+import FormularioCliente from "../components/common/FormularioCliente";
+
+
 
 const ListaClientes = () => {
   const [usuarios, setUsuarios] = useState(undefined);
@@ -36,6 +39,7 @@ const ListaClientes = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <FormularioCliente />
       {/* LA INTERFAZ DEL BUSCADOR */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold' }}>
@@ -67,6 +71,8 @@ const ListaClientes = () => {
         <TablaClientes clientes={usuariosFiltrados} />
       )}
     </Box>
+    
+
   );
 };
 
