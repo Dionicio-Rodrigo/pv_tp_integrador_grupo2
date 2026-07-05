@@ -3,6 +3,7 @@ import {
   TextField,
   Typography,
   Alert,
+  Stack,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -48,8 +49,7 @@ const ListaClientes = () => {
     : [];
 
   return (
-    <Box sx={{ p: 3 }}>
-      <FormularioCliente />
+    <Box>
       {/* LA INTERFAZ DEL BUSCADOR */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
@@ -78,12 +78,16 @@ const ListaClientes = () => {
       )}
 
       {/* Estado: Éxito */}
-      {Array.isArray(usuarios) &&
-        (esPantallaMovil ? (
-          <ClientesContainer clientes={usuariosFiltrados} />
-        ) : (
-          <TablaClientes clientes={usuariosFiltrados} />
-        ))}
+      {Array.isArray(usuarios) && (
+        <Stack spacing={1}>
+          {esPantallaMovil ? (
+            <ClientesContainer clientes={usuariosFiltrados} />
+          ) : (
+            <TablaClientes clientes={usuariosFiltrados} />
+          )}
+          <FormularioCliente />
+        </Stack>
+      )}
     </Box>
   );
 };
