@@ -37,12 +37,6 @@ const Nav = () => {
         <GroupOutlined sx={{ fontSize: 30 }} />
         <Box sx={{ display: { xs: "none", sm: "inherit" } }}>Clientes</Box>
       </ToggleButton>
-      <ToggleButton component={NavLink} to="/Mi-Perfil">
-        <AccountCircleOutlined sx={{ fontSize: 30 }} />
-        <Box sx={{ display: { xs: "none", sm: "inline" }, flexWrap: "nowrap" }}>
-          Mi Perfil
-        </Box>
-      </ToggleButton>
     </ToggleButtonGroup>
   );
 };

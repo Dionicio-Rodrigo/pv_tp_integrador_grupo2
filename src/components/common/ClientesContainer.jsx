@@ -15,8 +15,7 @@ export const ClientesContainer = ({ clientes }) => {
     <Stack direction="column" spacing={1}>
       {clientes.map((c) => (
         <Card key={c.id} sx={{ p: 0 }}>
-          {/* El CardAction tendra un `onClick={() => {navigate("/")}}` para que pueda navegar su pagina de detalles */}
-          <CardActionArea>
+          <CardActionArea onClick={() => navigate(`/clientes/${c.id}`)}>
             <CardContent sx={{ bgcolor: "secondary.main" }}>
               <Stack direction="row" sx={{ justifyContent: "space-between" }}>
                 <Typography variant="h5" color="warning">

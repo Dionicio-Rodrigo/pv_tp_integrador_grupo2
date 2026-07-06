@@ -24,11 +24,10 @@ import {
 import { useEffect, useState } from "react";
 
 const infoFilas = [
-  { info: "Nombre de la Organización", dato: "Panaderos Organizados" },
+  { info: "Organización", dato: "Panaderos Organizados" },
   { info: "Fundado en", dato: "2026" },
-  { info: "Miemtros Activos", dato: "10+" },
-  { info: "Nombre de la Organización", dato: "Reunion Mensual - Julio 2026" },
-  { info: "Sede Principal", dato: "San Salvador de Jujuy, Argentina" },
+  { info: "Eventos", dato: "Reunion Mensual - Julio 2026" },
+  { info: "Sede", dato: "San Salvador de Jujuy, Argentina" },
 ];
 
 const Dashboard = () => {
@@ -111,7 +110,7 @@ const Dashboard = () => {
             >
               <TableBody>
                 {infoFilas.map((r) => (
-                  <TableRow>
+                  <TableRow key={r.info}>
                     <TableCell
                       align="left"
                       sx={{
@@ -129,6 +128,7 @@ const Dashboard = () => {
                         p: "0",
                         color: "error.main",
                         borderColor: "warning.main",
+                        textWrap: "nowrap",
                       }}
                     >
                       {r.dato}

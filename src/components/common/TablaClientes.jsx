@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { InfoOutlineRounded } from "@mui/icons-material";
 import {
   Paper,
   Stack,
@@ -9,8 +10,10 @@ import {
   TableHead,
   TableRow,
   Button,
+  Fab,
+  Tooltip,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const Encabezado = styled(TableCell)`
   color: ${({ theme }) => theme.palette.secondary.contrastText};
@@ -26,13 +29,12 @@ const Dato = styled(TableCell)`
 // El borde del ultimo elemento se ve doble
 
 export const TablaClientes = ({ clientes }) => {
-  
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  const manejarClick=(id)=>{
-  navigate(`/clientes/${id}`)
+  const manejarClick = (id) => {
+    navigate(`/clientes/${id}`);
   };
-  
+
   return (
     <Stack>
       <TableContainer component={Paper} sx={{ p: "0" }}>
@@ -45,7 +47,7 @@ export const TablaClientes = ({ clientes }) => {
               <Encabezado>E-MAIL</Encabezado>
               <Encabezado>TELEFONO</Encabezado>
               <Encabezado>CIUDAD</Encabezado>
-              <Encabezado>INFO</Encabezado>
+              <Encabezado></Encabezado>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,11 +60,17 @@ export const TablaClientes = ({ clientes }) => {
                 <Dato>{c.phone}</Dato>
                 <Dato>{c.address.city}</Dato>
                 <Dato>
-                <Button variant="contained" 
-                  color="secondary" 
-                   onClick={() => navigate(`/clientes/${c.id}`)}>
-                   Ver Ficha Completa
-                 </Button>
+                  <Tooltip title="Ver detalles del cliente">
+                    <Fab
+                      variant="outlined"
+                      color="success"
+                      onClick={() => navigate(`/clientes/${c.id}`)}
+                      size="small"
+                      sx={{ boxShadow: "none" }}
+                    >
+                      <InfoOutlineRounded />
+                    </Fab>
+                  </Tooltip>
                 </Dato>
               </TableRow>
             ))}
