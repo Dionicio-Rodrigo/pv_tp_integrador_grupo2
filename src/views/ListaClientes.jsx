@@ -6,6 +6,7 @@ import {
   Stack,
   useMediaQuery,
   useTheme,
+  Paper,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SkeletonTabla } from "../components/common/SkeletonTabla";
@@ -51,7 +52,7 @@ const ListaClientes = () => {
   return (
     <Box>
       {/* LA INTERFAZ DEL BUSCADOR */}
-      <Box sx={{ mb: 4 }}>
+      <Paper sx={{ mb: 4, p: "1.5em" }}>
         <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
           Gestión de Clientes
         </Typography>
@@ -62,7 +63,7 @@ const ListaClientes = () => {
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
         />
-      </Box>
+      </Paper>
 
       {/* RENDERIZADO CONDICIONAL */}
 
