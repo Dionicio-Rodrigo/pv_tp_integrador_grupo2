@@ -14,6 +14,65 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { ExpandMore, Save } from "@mui/icons-material";
+import { Formik, Form, useField } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  name: Yup.object({
+    firstname: Yup.string()
+      .trim()
+      .lowercase()
+      .required("El nombre es obligatorio"),
+    lastname: Yup.string()
+      .trim()
+      .lowercase()
+      .required("El apellido es obligatorio"),
+  }),
+  email: Yup.string()
+    .email("Ingresa un correo válido Ej: user@pagina.com")
+    .required("El correo es obligatorio"),
+  phone: Yup.string().trim().required("El teléfono es obligatorio"),
+  address: Yup.object({
+    city: Yup.string().trim().required("La ciudad es obligatoria"),
+    street: Yup.string().trim(),
+    number: Yup.string().trim(),
+  }),
+});
+
+const initialValues = {
+  email: "",
+  username: "",
+  password: "",
+  name: {
+    firstname: "",
+    lastname: "",
+  },
+  address: {
+    city: "",
+    street: "",
+    number: "",
+    zipcode: "",
+    geolocation: {
+      lat: "",
+      long: "",
+    },
+  },
+  phone: "",
+};
+
+const FormikInput = ({ name, label, ...props }) => {
+  const [field, meta] = useField(name);
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      label={label}
+      error={meta.touched && Boolean(meta.error)}
+      helperText={meta.touched && meta.error}
+    />
+  );
+};
 
 const FormularioCliente = () => {
   const [open, setOpen] = useState(false);
@@ -27,36 +86,16 @@ const FormularioCliente = () => {
     setOpen(false);
   };
 
-  const clienteInicial = {
-    email: "",
-    username: "",
-    password: "",
-    name: {
-      firstname: "",
-      lastname: "",
-    },
-    address: {
-      city: "",
-      street: "",
-      number: 0,
-      zipcode: "",
-      geolocation: {
-        lat: "",
-        long: "",
-      },
-    },
-    phone: "",
-  };
-  const [cliente, setCliente] = useState(clienteInicial);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const manejarEnvio = (values, { resetForm }) => {
+    console.log(values);
+    const datosNormalizados = validationSchema.cast(values);
+    console.log(datosNormalizados);
 
     setCargando(true);
     fetch("https://fakestoreapi.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cliente),
+      body: JSON.stringify(datosNormalizados),
     })
       .then((response) => response.json())
       .then((data) =>
@@ -76,15 +115,8 @@ const FormularioCliente = () => {
       .finally(() => {
         setOpen(true);
         setCargando(false);
+        resetForm();
       });
-
-    setCliente(clienteInicial);
-  };
-  const handleChange = (e) => {
-    setCliente({
-      ...cliente,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -120,59 +152,97 @@ const FormularioCliente = () => {
             bgcolor: "background.paper",
           }}
         >
-          <Box component="form" onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              <TextField
-                label="Nombre"
-                name="name.firstname"
-                value={cliente.name.firstname}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Apellido"
-                name="name.lastname"
-                value={cliente.name.lastname}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Email"
-                name="email"
-                value={cliente.email}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Telefono"
-                name="phone"
-                value={cliente.phone}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Ciudad"
-                name="address.city"
-                value={cliente.address.city}
-                onChange={handleChange}
-                fullWidth
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ maxWidth: "200px", alignSelf: "center" }}
-                disabled={cargando}
-                startIcon={
-                  cargando ? (
-                    <CircularProgress size={20} color="inherit" />
-                  ) : (
-                    <Save />
-                  )
-                }
-              >
-                {cargando ? "Guardando..." : "Guardar Cliente"}
-              </Button>
-            </Stack>
+          <Box>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={manejarEnvio}
+            >
+              {({ isValid, dirty }) => (
+                <Form noValidate>
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+                      Datos del Cliente
+                    </Typography>
+                    <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+                      <FormikInput
+                        name="name.firstname"
+                        label="Nombre"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                      <FormikInput
+                        name="name.lastname"
+                        label="Apellido"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                    </Stack>
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+                      Contacto
+                    </Typography>
+                    <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+                      <FormikInput
+                        name="email"
+                        label="Email"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                      <FormikInput
+                        name="phone"
+                        label="Teléfono"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                    </Stack>
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+                      Dirección
+                    </Typography>
+                    <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+                      <FormikInput
+                        name="address.city"
+                        label="Ciudad"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                      <FormikInput
+                        name="address.street"
+                        label="Calle"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                      <FormikInput
+                        name="address.number"
+                        label="Número"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                      />
+                    </Stack>
+                  </Box>
+                  <Stack spacing={2}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      sx={{ maxWidth: "200px", alignSelf: "center" }}
+                      disabled={cargando || !isValid || !dirty}
+                      startIcon={
+                        cargando ? (
+                          <CircularProgress size={20} color="inherit" />
+                        ) : (
+                          <Save />
+                        )
+                      }
+                    >
+                      {cargando ? "Guardando..." : "Guardar Cliente"}
+                    </Button>
+                  </Stack>
+                </Form>
+              )}
+            </Formik>
           </Box>
         </AccordionDetails>
       </Accordion>
