@@ -5,6 +5,7 @@ import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from "./components/common/RutaProtegida";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
+import DetalleCliente from "./views/DetalleCliente.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,16 +16,18 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          <Route path="/" element={ 
-          <RutaProtegida>
-            <LayoutPagina />
-          </RutaProtegida>  
-            }>
-            
-            <Route index element={<Dashboard />}/>
-            <Route path="Usuarios" element={<ListaClientes />} />
-          
-           <Route path="*" element={<Navigate to="/"/>} />
+          <Route
+            path="/"
+            element={
+              <RutaProtegida>
+                <LayoutPagina />
+              </RutaProtegida>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="Clientes" element={<ListaClientes />} />
+            <Route path="clientes/:id" element={<DetalleCliente />} /> 
+            <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
       </BrowserRouter>

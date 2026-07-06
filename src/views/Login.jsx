@@ -19,7 +19,7 @@ const Login = () => {
     nombre: Yup.string()
       .trim()
       .required("Debe ingresar nombre")
-      .matches(/^[a-zA-ZñÑ]+\s+[a-zA-ZñÑ]+$/, "Ingrese nombre completo")
+      .matches(/^[a-zA-ZñÑ]+(\s+[a-zA-ZñÑ]+)+$/, "Ingrese nombre completo")
   });
 
   const manejarEnvio = (values) => {
