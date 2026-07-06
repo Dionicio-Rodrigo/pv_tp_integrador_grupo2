@@ -65,9 +65,17 @@ Esta vista demuestra el patrón de **renderizado condicional según estado de ca
 
 ### 4. Detalle de Cliente (`views/DetalleCliente.jsx`)
 
-> **Nota de estado actual:** al momento de este README, el archivo `DetalleCliente.jsx` está vacío y la ruta correspondiente todavía no fue agregada en `App.jsx`. Tanto en `TablaClientes.jsx` como en `ClientesContainer.jsx` se dejaron comentarios indicando dónde iría el botón/acción de navegación (`onClick={() => navigate(...)}`) hacia esta vista. Es decir, la funcionalidad está **prevista en el diseño pero pendiente de implementación**.
+Esta vista implementa enrutamiento dinámico (`/clientes/:id`) capturando el parámetro con el hook `useParams`. 
+- **Lectura Profunda:** Realiza un `fetch` específico para obtener y desestructurar los datos anidados del cliente (dirección completa, geolocalización, credenciales).
+- **Control de Accesos (Roles):** Consume el `AdminContext` para verificar el sector del usuario. Si el perfil es "Gerencia", se habilita el botón de eliminación. Si es "Soporte", la vista es de solo lectura.
+- **Eliminación (DELETE):** Al confirmar la acción, dispara una petición asincrónica con el método `DELETE` hacia la API y redirige automáticamente al listado principal usando `useNavigate`.
 
----
+### 5. Alta de Clientes (components/common/FormularioCliente.jsx)
+
+Integrado dentro de la vista de gestión mediante un componente `Accordion` de Material UI, permite registrar nuevos usuarios.
+- **Validación Robusta:** Utiliza **Formik** y **Yup** para el control de estados y la validación estricta de campos vacíos o formatos incorrectos (ej. validación de email).
+- **Escritura Anidada:** Implementa componentes personalizados (`FormikInput` con `useField`) para manejar la actualización de estados anidados (`name.firstname`, `address.city`) sin mutar el objeto original.
+- **Petición POST:** Envía los datos normalizados mediante un `fetch` con el método `POST`. Al recibir el Status 200, captura el ID generado por la FakeStore API y renderiza un feedback visual de éxito (`Snackbar`).
 
 ## APIs utilizadas
 
@@ -75,6 +83,9 @@ La aplicación consume un único recurso externo:
 
 - **Fake Store API — `GET https://fakestoreapi.com/users`**
   Se usa tanto en `Dashboard.jsx` (para las métricas rápidas) como en `ListaClientes.jsx` (para el listado completo y filtrable). Cada usuario devuelto incluye datos como `id`, `name.firstname`, `name.lastname`, `email`, `phone` y `address.city`, que son los campos que la app efectivamente utiliza.
+- **GET** `https://fakestoreapi.com/users/:id` (Para el detalle de un cliente específico).
+- **POST** `https://fakestoreapi.com/users` (Simulación de creación de cliente).
+- **DELETE** `https://fakestoreapi.com/users/:id` (Simulación de borrado lógico por rol).
 
 ## Uso de localStorage
 
