@@ -34,8 +34,11 @@ const validationSchema = Yup.object().shape({
   phone: Yup.string().trim().required("El teléfono es obligatorio"),
   address: Yup.object({
     city: Yup.string().trim().required("La ciudad es obligatoria"),
-    street: Yup.string().trim(),
-    number: Yup.string().trim(),
+    street: Yup.string().optional().trim(),
+    number: Yup.number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .optional()
+      .typeError("El número debe ser un valor numérico"),
   }),
 });
 
