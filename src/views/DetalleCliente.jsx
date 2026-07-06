@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import {Box, Container, Paper, Typography, Button, CircularProgress, Alert, Divider, Stack, Grid, 
 List, ListItem,ListItemIcon, ListItemText} from "@mui/material";
 import {Email, Phone, Home, Badge, Lock, LocationCity, Map} from "@mui/icons-material";
+import { useAdmin } from "../context/AdminContext";
 
 const BotonNavegacion = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.colores.marron,
@@ -18,6 +19,7 @@ const BotonNavegacion = styled(Button)(({ theme }) => ({
 const DetalleCliente = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { admin } = useAdmin();
 
   const [cliente, setCliente] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -39,6 +41,30 @@ const DetalleCliente = () => {
     };
     obtenerDatos();
   }, [id]);
+
+  const handleEliminar = async () => {
+    const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
+    if (!confirmar) return;
+
+    try {
+        const res = await fetch(`https://fakestoreapi.com/users/${id}`, {
+            method: "DELETE"
+        });
+
+        if (!res.ok) throw new Error("No se pudo eliminar el cliente en el servidor.");
+
+        const data = await res.json();
+        console.log("Cliente eliminado (Simulación de API):", data);
+
+        alert(`Cliente ${name.firstname} ${name.lastname} eliminado correctamente.`);
+        
+        navigate("/clientes");
+
+    } catch (err) {
+        console.error(err);
+        alert("Hubo un problema de red al intentar eliminar al cliente.");
+    }
+};
 
   if (cargando) return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
@@ -62,10 +88,20 @@ const DetalleCliente = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
       <BotonNavegacion onClick={() => navigate("/clientes")} sx={{ mb: 4 }}>
         Regresar al Listado
       </BotonNavegacion>
-
+          {admin?.sector === "Gerencia" && (
+              <Button 
+                  variant="contained" 
+                  color="error" 
+                  onClick={handleEliminar}
+              >
+                  Eliminar Cliente
+              </Button>
+          )}
+      </Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Paper sx={{ p: 4, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", height: "100%" }}>
